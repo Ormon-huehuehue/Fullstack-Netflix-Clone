@@ -1,14 +1,17 @@
+"use client"
+
 import React from 'react'
 import Link from 'next/link'
 import { ButtonIcon } from '@/components/arrowButton'
 import Input from '@/components/input'
 import { useToast } from "@/components/ui/use-toast"
-import { Toaster } from "@/components/ui/toaster"
+import { loginHandler } from "@/actions/login"
+
 
 
 const LoginForm = () => {
 
-
+const {toast} = useToast();
 
   return (
     <div className = "bg-black w-full h-full bg-opacity-30 flex flex-col items-center rounded-[60%]">
@@ -19,15 +22,34 @@ const LoginForm = () => {
         <main className  = "flex justify-center w-2/5 ">
           <div className = "bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:max-w-md rounded-md w-full">
           <h2 className = "text-white text-4xl mb-8 font-semibold">Sign in</h2>
-          <form action={(formdata : FormData)=>{
-            const email = formdata.get("email") as string;
-            const password =formdata.get("password") as string;
+          <form action={async (formData)=>{
+            const email = formData.get("email") as string;
+            const password =formData.get("password") as string;
 
             if(!email || !password){
-              return <Toaster title = "Error" description = "Please fill in all fields" />
+                return toast({
+                    title:"email or password missing",
+                    description:"please fill all the fields"
+                })
             }
-
-          }} className = "flex flex-col items-center gap-5">
+            
+            const error = await loginHandler(email,password);
+            console.log("error:",error);
+            
+            if(!error){
+                toast({
+                    title:"Success",
+                    description:"Logged in"
+                })
+    
+            }
+            else{
+                return toast({
+                    title:"error"
+                })
+            }
+            }}
+            className = "flex flex-col items-center gap-5">
             <Input type="email" placeholder="Email" name="email"/>
             <Input type="password" placeholder = "Password" name="password"/>
             <button type="submit"><ButtonIcon/></button>
