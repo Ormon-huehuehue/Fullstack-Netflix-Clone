@@ -1,8 +1,19 @@
 
+import React from 'react'
 
-export default function Home() {
+const page = () => {
   return (
-    <>
-    HELLO</>
-  );
+    <div className = "h-screen w-full bg-[url('/hero.png')] bg-no-repeat bg-center bg-fixed bg-cover">
+      <div>
+        <nav>
+
+        </nav>
+
+        
+      </div>
+      
+    </div>
+  )
 }
+
+export default page
