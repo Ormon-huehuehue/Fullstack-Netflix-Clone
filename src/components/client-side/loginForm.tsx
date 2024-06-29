@@ -6,6 +6,7 @@ import { ButtonIcon } from '@/components/arrowButton'
 import Input from '@/components/input'
 import { useToast } from "@/components/ui/use-toast"
 import { loginHandler } from "@/actions/login"
+import { redirect } from 'next/navigation'
 
 
 
@@ -34,7 +35,6 @@ const {toast} = useToast();
             }
             
             const error = await loginHandler(email,password);
-            console.log("error:",error);
             
             if(!error){
                 toast({
@@ -48,11 +48,14 @@ const {toast} = useToast();
                     title:"error"
                 })
             }
+
+            redirect("/");
+
             }}
             className = "flex flex-col items-center gap-5">
             <Input type="email" placeholder="Email" name="email"/>
             <Input type="password" placeholder = "Password" name="password"/>
-            <button type="submit"><ButtonIcon/></button>
+            <ButtonIcon />
             <span className = "font-bold text-slate-400 text-lg">OR</span>
             <Link className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400" href = "/resetPassword">Forgot Password</Link>
 
