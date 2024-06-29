@@ -15,27 +15,31 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 
+  import { CiSearch } from "react-icons/ci";
 
 
-const Navbar:React.FC<string> = async (name: string) => {
+
+
+const Navbar = async () => {
     const session = await auth();
     if (!session){
         redirect("/login")
     }
 
-    name = session?.user?.name as string;
+    const name = session?.user?.name as string;
 
   return (
     <nav className = "text-white py-4 px-5 flex justify-between font-montserrat">
-        <img src = "/logo.png" alt="logo" className = "z-10"/>
-        <div id="links" className = "text-xl flex gap-20 items-center z-10">
+        <img src = "/logo.png" alt="logo" className = ""/>
+        <div id="links" className = "text-xl flex gap-20 items-center">
             <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> Home </Link>
             <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400" > Series </Link>
             <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> Films </Link>
             <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> New & popular </Link>
             <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> My List </Link>
         </div>
-        <div className ="flex items-center gap-10 font-montserrat z-10">
+        <div className ="flex items-center gap-10 font-montserrat ">
+            <CiSearch className = "cursor-pointer"/>
             <p> Logged in as {name} </p>  
             <DropdownMenu>
                 <DropdownMenuTrigger>

@@ -2,29 +2,20 @@
 
 import React from 'react'
 
-import { auth } from '@/auth'
-import { redirect } from 'next/navigation';
-
 import Navbar from '@/components/Navbar';
-import AccountMenu from '@/components/client-side/AccountMenu';
 import Billboard from '@/components/Billboard';
 
-
-
 const page =  () => {
-
   return (
-    <div>
-      <div>
-        <Billboard/>
+    <div className="h-screen bg-black object-fill relative">
+      <div className="absolute top-0 left-0 w-full z-10">
+        <Navbar/>
       </div>
-      <div className="z-10">
-      <Navbar/>
+      <div className="absolute top-0 left-0 w-full z-0">
+        <Billboard/> 
       </div>
-      
     </div>
   )
 }
 
 export default page
-

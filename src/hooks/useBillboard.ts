@@ -20,8 +20,7 @@ const useBillboard = async() => {
       console.log("RandomVideo",randomVideo)
       // Check if a video was found
       if (randomVideo.length > 0) {
-        console.log("RandomVideo",randomVideo[0].videoPath)
-        return randomVideo[0].videoPath
+        return randomVideo[0]
       } else {
         return null; // No video found
       }
