@@ -9,6 +9,7 @@ import { connectDb } from '@/lib/utils'
 import { User } from '@/models/userModel'
 import { hash } from 'bcryptjs'
 import { redirect } from 'next/navigation'
+import { signIn } from '@/auth'
 
 
 
@@ -71,16 +72,25 @@ const page = () => {
             <Input type="password" name = "password" placeholder = "Password"/>
             <Input type= "password" name="confirmPassword" placeholder = "Confirm Password"/>
             <Button type="submit" variant="outline">Sign Up</Button>
+          </form>
 
+
+          <div className = "flex flex-col items-center gap-2" >
             <span className = "font-bold text-slate-400 text-lg">OR</span>
+            <form
+            action={async () => {
+              "use server"
+              await signIn("google")
+            }}>
+              <Button type="submit">Signin with Google</Button>
+            </form>
             <Link className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400" href = "/resetPassword">Forgot Password</Link>
 
             <span className = "self-start font-bold text-slate-400 text-lg">Already have an account?
               <Link href = "/login" className = "text-white hover:underline">Sign in</Link>
             </span>
-
+          </div>
     
-          </form>
           </div>
         </main>
       

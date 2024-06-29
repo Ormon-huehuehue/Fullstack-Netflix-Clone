@@ -1,6 +1,6 @@
 import NextAuth,{AuthError, CredentialsSignin} from "next-auth"
 import GitHub from "next-auth/providers/github"
-import Google from "next-auth/providers/google"
+import GoogleProvider from "next-auth/providers/google"
 import CredentialProvider from "next-auth/providers/credentials"
 import { connectDb } from "./lib/utils";
 import {compare} from "bcryptjs";
@@ -8,6 +8,10 @@ import { User } from "./models/userModel";
  
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
+    GoogleProvider({
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        clientSecret : process.env.GOOGLE_CLIENT_SECRET
+    }),
     CredentialProvider({
         name:"credentials",
         credentials:{
@@ -21,13 +25,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             }
         },
         authorize: async (credentials)=>{
-            const email = credentials.email as string | undefined;
-            const password = credentials.password as string | undefined;
-
-            if(!email || !password){
-                throw new CredentialsSignin("Please provide both email and password");
-            };
-
+            const email = credentials.email as string;
+            const password = credentials.password as string;
 
             //connection with database 
             await connectDb();
@@ -56,9 +55,28 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   },
   callbacks:{
     async signIn({ user, account}){
+        if(account?.provider == "google"){
+            try{
+                const {email, name, id } = user;
+                
+                await connectDb();
+
+                const userAlreadyExists = await User.findOne({email});
+                if(!userAlreadyExists){
+                    await User.create({email,name, googleId : id, image : user.image});
+                }
+                return true;
+            }
+            catch(error){
+                console.error("Error in google callback",error);
+                return false;
+            }
+        }
         if(account?.provider == "credentials"){
             return true;
         }
+        return false;
+
     },
     async redirect({url, baseUrl}){
         //redirect to homepage after login
@@ -66,7 +84,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             return baseUrl;
         }
         //keep the default behavior for other cases
-        return baseUrl;
+        return url;
     }   
   }
 })
