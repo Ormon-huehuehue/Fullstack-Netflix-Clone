@@ -1,5 +1,5 @@
-import { timeStamp } from "console";
 import mongoose,{Schema} from "mongoose"
+
 
 const userSchema = new Schema({
     name : {
@@ -20,19 +20,15 @@ const userSchema = new Schema({
         type:String,
         //required:true  //this is commented out because google auth can also be used to sign in 
     },
-    favourites:{
-        type:[String],
-        default:[]
-    },
-    profiles:{
-        type:[String],
-        default:[]
-    },
     googleId :{
         type:String
     },
     image:{
         type:String
+    },
+    profiles:{
+        type:[{type: Schema.Types.ObjectId, ref:"Profile"}],
+        default:[]
     }
 }, {timestamps:true} )
 
