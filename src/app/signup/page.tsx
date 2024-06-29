@@ -10,6 +10,7 @@ import { User } from '@/models/userModel'
 import { hash } from 'bcryptjs'
 import { redirect } from 'next/navigation'
 import { signIn } from '@/auth'
+import { Mail } from "lucide-react"
 
 
 
@@ -71,7 +72,7 @@ const page = () => {
             <Input type="email" name = "email" placeholder="Email"/>
             <Input type="password" name = "password" placeholder = "Password"/>
             <Input type= "password" name="confirmPassword" placeholder = "Confirm Password"/>
-            <Button type="submit" variant="outline">Sign Up</Button>
+            <Button type="submit" variant="outline" className = "mb-2">Sign Up</Button>
           </form>
 
 
@@ -81,8 +82,12 @@ const page = () => {
             action={async () => {
               "use server"
               await signIn("google")
+              console.log("User signed in with google")
+              redirect("/")
             }}>
-              <Button type="submit">Signin with Google</Button>
+              <Button className ='mb-3'>
+                <Mail className="mr-2 h-4 w-4" /> Login with Email
+              </Button>
             </form>
             <Link className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400" href = "/resetPassword">Forgot Password</Link>
 

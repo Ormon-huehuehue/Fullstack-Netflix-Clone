@@ -8,13 +8,13 @@ const LogoutButton = () => {
     const {toast} = useToast();
 
   return (
-    <Button onClick = {()=> {
+    <div onClick = {()=> {
         signOut();
         toast({
             title:"Logged out successfully"
         })
 
-    }}> Logout</Button>
+    }}> Logout</div>
 
   )
 }

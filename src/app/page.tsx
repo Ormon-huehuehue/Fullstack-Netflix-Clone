@@ -1,30 +1,25 @@
-
+"use server"
 
 import React from 'react'
-import LogoutButton from '@/components/client-side/logoutButton'
+
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation';
-import { User } from '@/models/userModel';
+
+import Navbar from '@/components/Navbar';
+import AccountMenu from '@/components/client-side/AccountMenu';
+import Billboard from '@/components/Billboard';
 
 
 
-const page = async (currUser: string) => {
-
-  const session = await auth()
-  if (!session){
-    redirect("/login")
-  }
-  currUser = session?.user?.name as string;
+const page =  () => {
 
   return (
-    <div className = "h-screen w-full bg-[url('/hero.png')] bg-no-repeat bg-center bg-fixed bg-cover">
+    <div>
       <div>
-        <nav className = "text-white">
-          <p> Logged in as {currUser} </p>
-          <div>
-            <LogoutButton/>
-          </div>
-        </nav>
+        <Billboard/>
+      </div>
+      <div className="z-10">
+      <Navbar/>
       </div>
       
     </div>

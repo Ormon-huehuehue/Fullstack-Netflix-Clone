@@ -5,6 +5,7 @@ import CredentialProvider from "next-auth/providers/credentials"
 import { connectDb } from "./lib/utils";
 import {compare} from "bcryptjs";
 import { User } from "./models/userModel";
+import { Video } from "./models/videoModel";
  
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
@@ -84,7 +85,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             return baseUrl;
         }
         //keep the default behavior for other cases
-        return url;
+        return baseUrl;
     }   
   }
 })

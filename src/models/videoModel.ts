@@ -2,7 +2,11 @@ import mongoose,{Schema} from "mongoose"
 
 const videoSchema = new Schema(
     {
-        videoFile: {
+        id:{
+            type:String,
+            required:true,
+        },
+        videoPath: {
             type: String, //cloudinary url
             required: true
         },
@@ -20,22 +24,20 @@ const videoSchema = new Schema(
         },
         duration: {
             type: Number, 
-            required: true
         },
         views: {
             type: Number,
             default: 0
         },
-        isPublished: {
-            type: Boolean,
-            default: true
-        },
         owner: {
             type: Schema.Types.ObjectId,
             ref: "User"
-        }
-
-    }, 
+        },
+        genre:{
+            type: String,
+            required: true
+        },
+        },
     {
         timestamps: true
     }
