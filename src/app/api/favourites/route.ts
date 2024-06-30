@@ -14,13 +14,12 @@ export async function GET(){
     
         await connectDb();
         const user = await User.findOne({email: userEmail});
-        console.log("current route running")
 
         if(user){
             return NextResponse.json(user.favourites);
         }
         else{
-            return NextResponse.json("user not found")
+            throw new Error("User not found")
         }
     }
     catch(error){

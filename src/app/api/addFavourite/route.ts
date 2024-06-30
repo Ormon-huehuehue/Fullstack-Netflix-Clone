@@ -11,27 +11,26 @@ import { User } from "@/models/userModel";
 
 export async function POST(request: Request){
     try{
-        const { movieId } = await request.json();
+        const  movie  = await request.json();
         const session = await auth();
         const userEmail = session?.user?.email;
     
     // Function to add videos to favourites
-        const video_id = movieId;
+        const video_id = movie._id;
     
     //connect to database
         await connectDb();
-        const existingMovie = await Video.findOne({_id: video_id});
-    
-        if(!existingMovie){
-            return NextResponse.json({ error: 'Movie not found' });
-        }
-    
         const user = await User.findOne({email: userEmail});
         
         if(user){
-            const isFavourite = user.favourites.some((fav)=> fav._id.toString() === existingMovie._id.toString());   
+            const isFavourite = user.favourites.some((fav:Record<string,any> )=> fav._id.toString() === video_id.toString());   
+
+            console.log("addFavourite api user checked")
+            console.log("Movie to be pushed : ", movie)
             if(!isFavourite){
-                user.favourites.push(existingMovie);
+                const movieJson = JSON.stringify(movie);
+                const movieObject = JSON.parse(movieJson);
+                user.favourites.push(movieObject.movie);
                 await user.save();
                 console.log("Movie added to favourites");  
                 return NextResponse.json(user);  
@@ -43,14 +42,9 @@ export async function POST(request: Request){
     
             
         }
-        else{
-            console.log("User not found");
-            res.status(404).json({ error: 'User not found' });  
-        }
-    
     }
     catch(error){
         console.error('Error adding to favourites:', error);
-      res.status(500).json({ error: 'Server error' });
+        return NextResponse.json({ error: 'Error in addFavourite api' });
     }
 }

@@ -1,4 +1,4 @@
-"use client"
+
 
 import Link from 'next/link';
 import LogoutButton from '@/components/client-side/logoutButton'
@@ -20,9 +20,16 @@ import {
   import useCurrentUser from '@/hooks/useCurrentUser';
   import useSWR from 'swr';
 
-const Navbar =  () => {
-    const {data: user, error} = useCurrentUser();
-    console.log("user : ",user)
+const Navbar = async () => {
+    const session = await auth();
+    const user = session?.user as User;
+    
+
+    
+    if (!user){
+        redirect("/login")
+    }
+
     const name = user?.name as string;
 
   return (
