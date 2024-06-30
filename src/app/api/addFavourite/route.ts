@@ -25,13 +25,13 @@ export async function POST(request: Request) {
     console.log("existing movie" ,existingMovie);
 
     if (!existingMovie) {
-      return NextResponse.json({ error: 'Movie not found' });
+      throw new Error("Movie not found")
     }
 
     const user = await User.findOne({ email: userEmail });
 
     if (!user) {
-      return NextResponse.json({ error: 'User not found' });
+      throw new Error('User not found');
     }
 
     const isFavourite = user.favourites.some((fav: mongoose.Types.ObjectId) => fav != null && fav.equals(existingMovie._id));
@@ -43,11 +43,11 @@ export async function POST(request: Request) {
       return NextResponse.json(user);
     } else {
       console.log("Movie already in favourites");
-      return NextResponse.json({ error: 'Movie already in favourites' });
+      throw new Error("Movie already in favourites")
     }
 
   } catch (error) {
-    console.error('Error adding to favourites:', error);
-    return NextResponse.json({ error: 'Server error' });
+    console.error('Error adding to favourites:');
+    throw new Error("Server error")
   }
 }
