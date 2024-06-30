@@ -4,14 +4,10 @@ import { NextApiResponse } from "next";
 
 const useBillboard = async() => {
   // Function to fetch a random video URL
-  console.log("useBillboard running")
 
     await connectDb();
-    console.log("Connected to DB")
-    console.log("Random URL function running")
 
     try {
-      // Ensure the connection to MongoDB is established
       
       // Use aggregation to get a random document
       const randomVideo = await Video.aggregate([

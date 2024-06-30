@@ -8,7 +8,6 @@ import { CiCircleInfo } from "react-icons/ci";
 const Billboard =async () => {
 
     const data =await useBillboard();
-    console.log(data);
     const url = data?.videoPath;
     const thumbnail = data?.thumbnail;
     const title = data?.title;

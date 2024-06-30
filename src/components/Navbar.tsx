@@ -16,6 +16,8 @@ import {
   } from "@/components/ui/dropdown-menu"
 
   import { CiSearch } from "react-icons/ci";
+  import { AiTwotoneBell } from "react-icons/ai";
+
 
 
 
@@ -39,7 +41,12 @@ const Navbar = async () => {
             <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> My List </Link>
         </div>
         <div className ="flex items-center gap-10 font-montserrat ">
-            <CiSearch className = "cursor-pointer"/>
+            <div className = "cursor-pointer w-6 h-6 flex justify-center items-center">
+            <CiSearch />
+            </div>
+            <div className ="cursor-pointer w-6 h-6 flex justify-center items-center">
+            <AiTwotoneBell />
+            </div>
             <p> Logged in as {name} </p>  
             <DropdownMenu>
                 <DropdownMenuTrigger>
