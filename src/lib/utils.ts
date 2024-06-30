@@ -1,6 +1,14 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import mongoose from "mongoose"
+import { User } from "@/models/userModel"
+
+import { cache } from 'react'
+ 
+export const getUser = cache(async (email: string) => {
+  const currUser = await User.findOne({email})
+  return currUser
+})
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

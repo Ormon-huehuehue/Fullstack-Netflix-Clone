@@ -45,7 +45,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                 throw new CredentialsSignin("Invalid password")
             }
             else{
-                console.log("User logged in",user);
+                console.log("User logged in");
                 return user;        
             }    
         },

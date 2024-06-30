@@ -29,7 +29,16 @@ const userSchema = new Schema({
     profiles:{
         type:[{type: Schema.Types.ObjectId, ref:"Profile"}],
         default:[]
-    }
+    },
+    favourites:{
+        type:[
+            {
+                type: Schema.Types.ObjectId,
+                ref:"Video"
+            }
+        ],
+        default:[]
+    },
 }, {timestamps:true} )
 
 //mongoose.models?.User to prevent it from recompiling the model if it already exists

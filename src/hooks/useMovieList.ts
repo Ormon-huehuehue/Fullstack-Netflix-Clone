@@ -8,7 +8,7 @@ const useMovieList = async () => {
 
   try {
     const videos = await Video.find({}); // Fetch all documents from the videos collection
-    console.log("Videos", videos);
+    console.log("Videos");
     return videos; // Return all videos
   } catch (error) {
     console.error('Failed to fetch videos:', error);

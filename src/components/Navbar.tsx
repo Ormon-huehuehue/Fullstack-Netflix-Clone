@@ -1,4 +1,4 @@
-
+"use client"
 
 import Link from 'next/link';
 import LogoutButton from '@/components/client-side/logoutButton'
@@ -17,18 +17,13 @@ import {
 
   import { CiSearch } from "react-icons/ci";
   import { AiTwotoneBell } from "react-icons/ai";
+  import useCurrentUser from '@/hooks/useCurrentUser';
+  import useSWR from 'swr';
 
-
-
-
-
-const Navbar = async () => {
-    const session = await auth();
-    if (!session){
-        redirect("/login")
-    }
-
-    const name = session?.user?.name as string;
+const Navbar =  () => {
+    const {data: user, error} = useCurrentUser();
+    console.log("user : ",user)
+    const name = user?.name as string;
 
   return (
     <nav className = "text-white py-4 px-5 flex justify-between font-montserrat">

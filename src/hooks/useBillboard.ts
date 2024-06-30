@@ -13,7 +13,7 @@ const useBillboard = async() => {
       const randomVideo = await Video.aggregate([
         { $sample: { size: 1 } } // $sample is used to randomly select documents
       ]);
-      console.log("RandomVideo",randomVideo)
+  
       // Check if a video was found
       if (randomVideo.length > 0) {
         return randomVideo[0]

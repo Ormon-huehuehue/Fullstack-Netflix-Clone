@@ -1,3 +1,5 @@
+"use server"
+
 import React from 'react'
 import MovieCard from './MovieCard'
 
@@ -16,10 +18,10 @@ const MovieList:React.FC<MovieListProps> = async  ({movies , Title}) => {
             <p className ="text-white text-md md:text-xl lg:text-2xl font-semibold">
                 {Title}
             </p>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-4 gap-2 mt-5">
                 {movies.map((movie)=>(
                     <div key = {movie._id}>
-                        <MovieCard title = {movie.title} description = {movie.description} thumbnail = {movie.thumbnail}  genre = {movie.genre}/>
+                        <MovieCard title = {movie.title} description = {movie.description} thumbnail = {movie.thumbnail}  genre = {movie.genre} url ={movie.videoPath} movieId={movie._id}/>
                     </div>
                 ))}
 
