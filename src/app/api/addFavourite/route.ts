@@ -1,50 +1,53 @@
 "use server"
 
-import {Video} from "@/models/videoModel";
+import { Video } from "@/models/videoModel";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { connectDb } from "@/lib/utils";
 import { User } from "@/models/userModel";
+import mongoose from "mongoose";
 
+export async function POST(request: Request) {
+  try {
+    const { movieId } = await request.json();
+    const session = await auth();
+    const userEmail = session?.user?.email;
 
-
-
-export async function POST(request: Request){
-    try{
-        const  movie  = await request.json();
-        const session = await auth();
-        const userEmail = session?.user?.email;
-    
-    // Function to add videos to favourites
-        const video_id = movie._id;
-    
-    //connect to database
-        await connectDb();
-        const user = await User.findOne({email: userEmail});
-        
-        if(user){
-            const isFavourite = user.favourites.some((fav:Record<string,any> )=> fav._id.toString() === video_id.toString());   
-
-            console.log("addFavourite api user checked")
-            console.log("Movie to be pushed : ", movie)
-            if(!isFavourite){
-                const movieJson = JSON.stringify(movie);
-                const movieObject = JSON.parse(movieJson);
-                user.favourites.push(movieObject.movie);
-                await user.save();
-                console.log("Movie added to favourites");  
-                return NextResponse.json(user);  
-            }
-            else{
-                console.log("Movie already in favourites");
-                return NextResponse.json({ error: 'Movie already in favourites' });
-            }
-    
-            
-        }
+    if (!userEmail) {
+      return NextResponse.json({ error: 'User not authenticated' });
     }
-    catch(error){
-        console.error('Error adding to favourites:', error);
-        return NextResponse.json({ error: 'Error in addFavourite api' });
+
+    // Connect to database
+    await connectDb();
+
+    const video_id = new mongoose.Types.ObjectId(movieId);
+    const existingMovie = await Video.findOne({ _id: video_id });
+    console.log("existing movie" ,existingMovie);
+
+    if (!existingMovie) {
+      return NextResponse.json({ error: 'Movie not found' });
     }
+
+    const user = await User.findOne({ email: userEmail });
+
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' });
+    }
+
+    const isFavourite = user.favourites.some((fav: mongoose.Types.ObjectId) => fav != null && fav.equals(existingMovie._id));
+
+    if (!isFavourite) {
+      user.favourites.push(existingMovie._id as string);
+      await user.save();
+      console.log("Movie added to favourites");
+      return NextResponse.json(user);
+    } else {
+      console.log("Movie already in favourites");
+      return NextResponse.json({ error: 'Movie already in favourites' });
+    }
+
+  } catch (error) {
+    console.error('Error adding to favourites:', error);
+    return NextResponse.json({ error: 'Server error' });
+  }
 }

@@ -22,7 +22,7 @@ const MovieCard:React.FC<MovieCardProps> = ({movie}) => {
                     className = "cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
                         <IoIosPlay size={20} />
                     </div>
-                    <FavouriteButton  movie ={movie} />
+                    <FavouriteButton  movieId ={movie._id} />
                 </div>
 
                 <p className = "text-green-400 font-semibold font-montserrat mt-4">

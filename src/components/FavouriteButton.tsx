@@ -9,25 +9,24 @@ import {useToast } from './ui/use-toast';
 
 
 
-const addFavourite = async (movie:Record<string,any>) => {
-  const response = await axios.post('/api/addFavourite', { movie });
+const addFavourite = async (movieId: string) => {
+  console.log("addfav called")
+  const response = await axios.post('/api/addFavourite', { movieId });
   return response.data;
 };
 
 
-
 interface FavouriteButtonProps {
-    movie: Record<string, any>
+  movieId: string;
 }
 
-
-const FavouriteButton: React.FC<FavouriteButtonProps> = ({ movie}) => {
+const FavouriteButton: React.FC<FavouriteButtonProps> = ({ movieId }) => {
   const {toast } = useToast();
   const { data: favourites } = useSWR('/api/favourites', fetcher);
 
   const handleAddFavourite = async () => {
     try {
-      await addFavourite(movie);
+      await addFavourite(movieId);
       toast({title:'Movie added to favourites'});
       mutate('/api/favourites');
     } catch (error) {
