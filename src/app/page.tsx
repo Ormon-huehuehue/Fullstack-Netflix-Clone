@@ -1,6 +1,4 @@
 import React from 'react';
-import getMovies from '@/actions/getMovies';
-import  getFavourites from '@/actions/getFavourites';
 import Navbar from '@/components/Navbar';
 import Billboard from '@/components/Billboard';
 import MovieList from '@/components/MovieList';
