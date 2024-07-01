@@ -6,6 +6,7 @@ import React,{useEffect, useState} from 'react';
 import useSWR from 'swr';
 import fetcher from '@/lib/fetcher';
 import MovieCard from '../MovieCard';
+import mongoose from 'mongoose';
 
 
 interface MovieListProps {
@@ -30,11 +31,10 @@ const MyList: React.FC<MovieListProps> = ({ Title }) => {
           </p>
           <div className="grid grid-cols-4 gap-2 mt-5">
           
-          
           {
-              favourites?.map((movie) => (
-              <div key={movie._id}>
-                <MovieCard movie={movie} />
+              favourites?.map((fav: mongoose.Types.ObjectId, i:number) => (
+              <div key={i}>
+                <MovieCard movie={fav} />
               </div>
             ))}
            

@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import { connectDb } from "@/lib/utils";
 import { User } from "@/models/userModel";
 import { NextResponse } from "next/server";
+import mongoose from "mongoose";
 
 export async function DELETE(request: Request, { params }: { params: { movieId: string } }) {
   try {
@@ -19,7 +20,8 @@ export async function DELETE(request: Request, { params }: { params: { movieId: 
 
     const user = await User.findOne({ email: userEmail });
     if (user) {
-      const movieIndex = user.favourites.findIndex(fav => fav == movieId);
+      const movieIndex = user.favourites.findIndex((fav: mongoose.Types.ObjectId) => fav != null && fav.equals(movieId))
+      // ((fav: mongoose.Types.ObjectId) => fav != null && fav== movieId);
       if (movieIndex > -1) {
         // Remove movie from favourites
         user.favourites.splice(movieIndex, 1);

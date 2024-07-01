@@ -11,6 +11,7 @@ import {useToast } from './ui/use-toast';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import getCurrentUser from '@/actions/getCurrentUser';
 import { useState } from 'react';
+import mongoose from 'mongoose';
 
 
 
@@ -43,7 +44,7 @@ const FavouriteButton: React.FC<FavouriteButtonProps> = ({ movieId }) => {
     queryFn: getCurrentUser
   })
   const isFavourite = (movieId : string):boolean =>{
-    return user?.favourites.some(fav=> fav == movieId);
+    return user?.favourites.some((fav: mongoose.Types.ObjectId) => fav != null && fav.equals(movieId))
   }
   
   const [addButton, setAddButton] = useState(isFavourite(movieId) as boolean)
