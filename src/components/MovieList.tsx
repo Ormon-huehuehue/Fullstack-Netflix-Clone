@@ -1,4 +1,4 @@
-"use client"
+
 
 import React from 'react';
 import MovieCard from './MovieCard';
@@ -10,13 +10,13 @@ interface MovieListProps {
   Title: string;
 }
 
-const MovieList: React.FC<MovieListProps> = ({ Title }) => {
+const MovieList: React.FC<MovieListProps> = async({ Title }) => {
+
+
+  const movies = await getMovies();
   
-  const {data:movies} =  useQuery({
-    queryKey: ['movies'],
-    queryFn : async()=> getMovies()
-  })
   
+  console.log(movies);
   // const convertedMovies =(movies &&  movies?.map(movie => JSON.parse(JSON.stringify(movie._doc))) ) 
   
   return (

@@ -1,4 +1,4 @@
-
+"use client"
 
 import Link from 'next/link';
 import LogoutButton from '@/components/client-side/logoutButton'
@@ -14,23 +14,24 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
+  import getCurrentUser from '@/actions/getCurrentUser';
 
   import { CiSearch } from "react-icons/ci";
   import { AiTwotoneBell } from "react-icons/ai";
-  import useCurrentUser from '@/hooks/useCurrentUser';
   import useSWR from 'swr';
+import { useQuery } from '@tanstack/react-query';
 
-const Navbar = async () => {
-    const session = await auth();
-    const user = session?.user as User;
+const Navbar =  () => {
+
+
+    const {data : currUser , error} = useQuery({
+        queryKey:['currUser'],
+        queryFn: getCurrentUser
+    })
     
+    const name = currUser?.name as string;
+    console.log(name);
 
-    
-    if (!user){
-        redirect("/login")
-    }
-
-    const name = user?.name as string;
 
   return (
     <nav className = "text-white py-4 px-5 flex justify-between font-montserrat">
