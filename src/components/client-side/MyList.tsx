@@ -1,42 +1,26 @@
 "use client"
 
-
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import React,{useEffect, useState} from 'react';
+
+import useSWR from 'swr';
+import fetcher from '@/lib/fetcher';
 import MovieCard from '../MovieCard';
+
 
 interface MovieListProps {
   Title: string;
+
 }
 
 const MyList: React.FC<MovieListProps> = ({ Title }) => {
 
-    const [favourites, setFavourites] = useState(null);
-  const [error, setError] = useState('');
+  // Fetching favourites
+  const { data: favourites } = useSWR('/api/favourites', fetcher);
+  console.log(favourites)
 
-  useEffect(() => {
-    fetch('http://localhost:3000/api/favourites')
-      .then(response => response.json())
-      .then(data => {
-        if (data.error) {
-          setError(data.error);
-        } else {
-          setFavourites(data.fav);
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching favourites:', error);
-        setError('Failed to fetch favourites');
-      });
-  }, []);
+  console.log(favourites);
 
-  useEffect(() => {},[favourites,error]);
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
- 
-    // Convert movies to plain objects by serializing to JSON and parsing
-
-    // const convertedMovies = favourites.map(movie => JSON.parse(JSON.stringify(movie._doc)));
   
     return (
       <div className="bg-black px-4 md:px-12 pt-4 space-y-8">
@@ -47,11 +31,13 @@ const MyList: React.FC<MovieListProps> = ({ Title }) => {
           <div className="grid grid-cols-4 gap-2 mt-5">
           
           
-            {favourites&& favourites.map((fav) => (
-              <div key={fav._id}>
-                <MovieCard movie={fav} />
+          {
+              favourites?.map((movie) => (
+              <div key={movie._id}>
+                <MovieCard movie={movie} />
               </div>
             ))}
+           
           </div>
         </div>
       </div>

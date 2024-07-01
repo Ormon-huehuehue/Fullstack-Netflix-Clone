@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import { connectDb } from "@/lib/utils";
 import { User } from "@/models/userModel";
 
-export async function GET(request: Request) {
+const getFavourites = async () => {
   try {
     const session = await auth();
     const userEmail = session?.user?.email;
@@ -14,9 +14,6 @@ export async function GET(request: Request) {
       console.error("User not authenticated");
       return NextResponse.json({ error: 'User not authenticated' });
     }
-
-    console.log(`Authenticated user: ${userEmail}`);
-
     // Connect to the database
     await connectDb();
 
@@ -27,16 +24,37 @@ export async function GET(request: Request) {
       console.error("User not found");
       return NextResponse.json({ error: 'User not found' });
     }
+    const favourites = user.favourites;
+    return favourites;
 
-    console.log(`Found user: ${user.email}`);
-    // console.log(`Favourites: ${JSON.stringify(user.favourites)}`);
-
-    return NextResponse.json(
-      user.favourites
-  );
 
   } catch (error) {
     console.error('Error fetching favourites:', error);
     return NextResponse.json({ error: 'Server error' });
   }
 }
+
+
+export default getFavourites;
+
+// export const fetchFavourites = async () => {
+//   console.log("fetchFavourites called")
+//     const response = await fetch('http://localhost:3000/api/favourites');
+//     if (!response.ok) {
+//       console.log('Failed to fetch favourites');
+//     }
+//     return response.json();
+//   }
+
+  
+
+// "use client"
+// import useSWR from 'swr';
+// import fetcher from '@/lib/fetcher';
+// import { NextResponse } from 'next/server';
+
+// export const fetchFavourites = async () => {
+//     const { data: favourites } = useSWR('/api/test', fetcher);
+//     return NextResponse.json(favourites);
+// };
+

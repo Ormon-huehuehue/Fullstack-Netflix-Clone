@@ -1,23 +1,23 @@
-
-import React, { useEffect, useState } from 'react';
-import useMovieList from '@/hooks/useMovieList';
+import React from 'react';
+import getMovies from '@/actions/getMovies';
+import  getFavourites from '@/actions/getFavourites';
 import Navbar from '@/components/Navbar';
 import Billboard from '@/components/Billboard';
 import MovieList from '@/components/MovieList';
-import useSWR from 'swr';
-import fetcher from '@/lib/fetcher';
-import favFetcher from '@/lib/favouritesFetcher';
 import MyList from '@/components/client-side/MyList';
+import { QueryClient, HydrationBoundary, dehydrate } from '@tanstack/react-query';
 
 
- 
+const Page = async () => {
+  const queryClient = new QueryClient();
 
-const page = async () => {
-  // const { data: movies, error: moviesError } = useSWR('moviesList', useMovieList);
-  // const { data: favourites,error } = useSWR('/api/favourites', fetcher);
-  // console.log(favourites)
+  // Prefetch the data
+  await Promise.all([
+    queryClient.prefetchQuery(['movies'], getMovies),
+    queryClient.prefetchQuery(['favourites'], getFavourites),
+  ]);
 
-  const movies = await useMovieList();
+  const dehydratedState = dehydrate(queryClient);
 
   return (
     <div className="h-screen bg-black object-fill relative">
@@ -26,13 +26,14 @@ const page = async () => {
       </div>
       <div className="absolute top-0 left-0 w-full z-0">
         <Billboard />
-        <MovieList Title="Trending now" movies={movies} />
-        <MovieList Title="Top picks for you" movies={movies} />
-        <MyList Title = "My List"/>
-        {/* <MovieList Title="My list" movies={favourites} /> */}
+        <HydrationBoundary state={dehydratedState}>
+          <MovieList Title="Trending now" />
+          <MovieList Title="Top picks for you" />
+          <MyList Title="My List" />
+        </HydrationBoundary>
       </div>
     </div>
   );
-}
+};
 
-export default page;
+export default Page;

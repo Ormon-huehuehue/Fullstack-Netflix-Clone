@@ -1,14 +1,15 @@
+"use server"
+
 import { connectDb } from "@/lib/utils";
 import { Video } from "@/models/videoModel";
 
-const useMovieList = async () => {
+const getMovies = async () => {
   // Function to fetch all the available movies
 
   await connectDb();
 
   try {
     const videos = await Video.find({}); // Fetch all documents from the videos collection
-    console.log("Videos");
     return videos; // Return all videos
   } catch (error) {
     console.error('Failed to fetch videos:', error);
@@ -16,4 +17,4 @@ const useMovieList = async () => {
   }
 };
 
-export default useMovieList;
+export default getMovies;
