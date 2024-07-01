@@ -1,3 +1,5 @@
+
+
 import React from 'react';
 import MovieCard from './MovieCard';
 
@@ -7,7 +9,9 @@ interface MovieListProps {
 }
 
 const MovieList: React.FC<MovieListProps> = ({ movies, Title }) => {
+ 
     // Convert movies to plain objects by serializing to JSON and parsing
+
     const convertedMovies = movies.map(movie => JSON.parse(JSON.stringify(movie._doc)));
   
     return (
@@ -17,6 +21,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, Title }) => {
             {Title}
           </p>
           <div className="grid grid-cols-4 gap-2 mt-5">
+          <div>Favourite: {JSON.stringify(movies)}</div>
             {convertedMovies.map((movie) => (
               <div key={movie._id}>
                 <MovieCard movie={movie} />

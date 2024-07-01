@@ -5,27 +5,38 @@ import { auth } from "@/auth";
 import { connectDb } from "@/lib/utils";
 import { User } from "@/models/userModel";
 
+export async function GET(request: Request) {
+  try {
+    const session = await auth();
+    const userEmail = session?.user?.email;
 
-export async function GET(){
-    try{
-        console.log("get mothod ran on favourites API")
-        const session = await auth();
-        const userEmail = session?.user?.email;
-    
-        await connectDb();
-        const user = await User.findOne({email: userEmail});
+    if (!userEmail) {
+      console.error("User not authenticated");
+      return NextResponse.json({ error: 'User not authenticated' });
+    }
 
-        if(user){
-            return NextResponse.json(user.favourites);
-        }
-        else{
-            throw new Error("User not found")
-        }
+    console.log(`Authenticated user: ${userEmail}`);
+
+    // Connect to the database
+    await connectDb();
+
+    // Find the user and populate the favourites
+    const user = await User.findOne({ email: userEmail }).populate('favourites');
+
+    if (!user) {
+      console.error("User not found");
+      return NextResponse.json({ error: 'User not found' });
     }
-    catch(error){
-        console.error('Error fetching favourites:', error);
-        return NextResponse.json({
-            error:"server error"
-        });
-    }
+
+    console.log(`Found user: ${user.email}`);
+    // console.log(`Favourites: ${JSON.stringify(user.favourites)}`);
+
+    return NextResponse.json({
+      fav : user.favourites
+  });
+
+  } catch (error) {
+    console.error('Error fetching favourites:', error);
+    return NextResponse.json({ error: 'Server error' });
+  }
 }

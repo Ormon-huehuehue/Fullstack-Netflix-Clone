@@ -23,14 +23,19 @@ interface FavouriteButtonProps {
 const FavouriteButton: React.FC<FavouriteButtonProps> = ({ movieId }) => {
   const {toast } = useToast();
   const { data: favourites } = useSWR('/api/favourites', fetcher);
+  console.log(favourites)
 
   const handleAddFavourite = async () => {
     try {
-      await addFavourite(movieId);
-      toast({title:'Movie added to favourites'});
-      mutate('/api/favourites');
+      const data = await addFavourite(movieId);
+      if (data.error) {
+        toast({ title: data.error });
+      } else {
+        toast({ title: 'Movie added to favourites' });
+        mutate('/api/favourites');
+      }
     } catch (error) {
-      toast({title:'Failed to add movie to favourites'});
+      toast({ title: 'Failed to add movie to favourites' });
       console.error('Error adding favourite:', error);
     }
   };

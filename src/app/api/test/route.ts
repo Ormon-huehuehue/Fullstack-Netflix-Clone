@@ -5,15 +5,16 @@ import { User } from "@/models/userModel";
 
 export async function GET(){
     try{
-        console.log("get mothod ran on favourites.ts")
         const session = await auth();
         const userEmail = session?.user?.email;
     
         await connectDb();
         const user = await User.findOne({email: userEmail});
-    
+        console.log(user.favourites[0]);
         if(user){
-            return NextResponse.json(user.favourites);
+            return NextResponse.json({
+                fav : user.favourites[1]
+            });
         }
         else{
             return NextResponse.json({
