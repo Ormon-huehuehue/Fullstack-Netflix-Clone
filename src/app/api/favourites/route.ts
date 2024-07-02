@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { connectDb } from "@/lib/utils";
 import { User } from "@/models/userModel";
+import mongoose from 'mongoose';
 
 export async function GET(request: Request) {
   try {
@@ -32,7 +33,7 @@ export async function GET(request: Request) {
     // console.log(`Favourites: ${JSON.stringify(user.favourites)}`);
 
     return NextResponse.json(
-      user.favourites
+      user.favourites as mongoose.Types.ObjectId[]
   );
 
   } catch (error) {

@@ -13,10 +13,6 @@ const userSchema = new Schema({
         unique:true,
         trim: true
     },
-    emailVerified:{
-        type:Boolean,
-        default:false
-    },
     password:{
         type:String,
         //required:true  //this is commented out because google auth can also be used to sign in 
@@ -27,10 +23,10 @@ const userSchema = new Schema({
     image:{
         type:String
     },
-    profiles:{
-        type:[{type: Schema.Types.ObjectId, ref:"Profile"}],
-        default:[]
-    },
+    // profiles:{
+    //     type:[{type: Schema.Types.ObjectId, ref:"Profile"}],
+    //     default:[]
+    // },
     favourites:{
         type:[
             {

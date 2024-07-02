@@ -29,11 +29,11 @@ const removeFavourite = async (movieId: string) => {
 
 
 
-interface FavouriteButtonProps {
-  movieId: string;
-}
+// interface FavouriteButtonProps {
+//   movieId: string;
+// }
 
-const FavouriteButton: React.FC<FavouriteButtonProps> = ({ movieId }) => {
+const FavouriteButton = ( {movieId} : {movieId:string}) => {
   
   //using react-query to fetch the current user
   const queryClient = useQueryClient();
@@ -44,7 +44,7 @@ const FavouriteButton: React.FC<FavouriteButtonProps> = ({ movieId }) => {
   
   //checking if the movie is already in the user's favourites
   const isFavourite = (movieId : string):boolean =>{
-    return user?.favourites.some((fav: mongoose.Types.ObjectId) => fav != null && fav.toString() == movieId.toString())
+    return user?.favourites.some((fav: mongoose.Types.ObjectId) => fav && fav.toString() == movieId)
   }
   
   const [addButton, setAddButton] = useState(isFavourite(movieId) as boolean)

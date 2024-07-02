@@ -10,12 +10,22 @@ interface MovieListProps {
   Title: string;
 }
 
+export interface movieInterface{
+  _id: mongoose.Types.ObjectId;
+  videoPath : string
+  thumbnail: string,
+  title: string,
+  description : string,
+  genre: string;
+  views : number
+}
+
 const MovieList: React.FC<MovieListProps> = async({ Title }) => {
 
 
   const movies = await getMovies();
   
-  const convertedMovies =(movies &&  movies?.map(movie => JSON.parse(JSON.stringify(movie._doc))) ) 
+  // const convertedMovies =(movies &&  movies?.map(movie => JSON.parse(JSON.stringify(movie._doc))) ) 
   
   return (
       <div className="bg-black px-4 md:px-12 pt-4 space-y-8">
@@ -24,12 +34,17 @@ const MovieList: React.FC<MovieListProps> = async({ Title }) => {
             {Title}
           </p>
           <div className="grid grid-cols-4 gap-2 mt-5">
-            {
-              convertedMovies?.map((movie, i:number) => (
-                <div key={i}>
-                  <MovieCard movie={movie} />
-                </div>
-            ))}
+          {
+          movies?.map((movie, i: number) => {
+            // Convert _id to string
+               
+            return (
+              <div key={i}>
+                <MovieCard thumbnail = {movie.thumbnail} _id = {  movie._id.toString()} genre = {movie.genre}/>
+              </div>
+            );
+          })
+        }
           </div>
         </div>
       </div>

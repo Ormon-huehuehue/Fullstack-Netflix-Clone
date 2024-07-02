@@ -29,10 +29,6 @@ const videoSchema = new Schema(
             type: Number,
             default: 0
         },
-        owner: {
-            type: Schema.Types.ObjectId,
-            ref: "User"
-        },
         genre:{
             type: String,
             required: true
