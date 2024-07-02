@@ -2,9 +2,9 @@
 
 import React from 'react';
 import MovieCard from './MovieCard';
-import { useGetMovies } from '@/hooks/useGetMovies';
+
 import getMovies from '@/actions/getMovies';
-import { useQuery } from '@tanstack/react-query';
+import mongoose from 'mongoose';
 
 interface MovieListProps {
   Title: string;
@@ -15,9 +15,7 @@ const MovieList: React.FC<MovieListProps> = async({ Title }) => {
 
   const movies = await getMovies();
   
-  
-  console.log(movies);
-  // const convertedMovies =(movies &&  movies?.map(movie => JSON.parse(JSON.stringify(movie._doc))) ) 
+  const convertedMovies =(movies &&  movies?.map(movie => JSON.parse(JSON.stringify(movie._doc))) ) 
   
   return (
       <div className="bg-black px-4 md:px-12 pt-4 space-y-8">
@@ -26,13 +24,11 @@ const MovieList: React.FC<MovieListProps> = async({ Title }) => {
             {Title}
           </p>
           <div className="grid grid-cols-4 gap-2 mt-5">
-      
-          
             {
-              movies?.map((movie) => (
-              <div key={movie._id}>
-                <MovieCard movie={movie} />
-              </div>
+              convertedMovies?.map((movie, i:number) => (
+                <div key={i}>
+                  <MovieCard movie={movie} />
+                </div>
             ))}
           </div>
         </div>

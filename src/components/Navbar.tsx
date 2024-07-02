@@ -2,10 +2,8 @@
 
 import Link from 'next/link';
 import LogoutButton from '@/components/client-side/logoutButton'
-import { User } from 'next-auth'
 import React from 'react'
-import { auth } from '@/auth';
-import { redirect } from 'next/navigation';
+
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -18,7 +16,7 @@ import {
 
   import { CiSearch } from "react-icons/ci";
   import { AiTwotoneBell } from "react-icons/ai";
-  import useSWR from 'swr';
+
 import { useQuery } from '@tanstack/react-query';
 
 const Navbar =  () => {
