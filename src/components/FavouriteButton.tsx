@@ -29,22 +29,22 @@ const removeFavourite = async (movieId: string) => {
 
 
 
-
-// const isFavourite = user.favourites.some((fav: mongoose.Types.ObjectId) => fav != null && fav.equals(existingMovie._id));
-
 interface FavouriteButtonProps {
   movieId: string;
 }
 
 const FavouriteButton: React.FC<FavouriteButtonProps> = ({ movieId }) => {
-
+  
+  //using react-query to fetch the current user
   const queryClient = useQueryClient();
   const {data:user, error} = useQuery({
     queryKey:['currUser'],
     queryFn: getCurrentUser
   })
+  
+  //checking if the movie is already in the user's favourites
   const isFavourite = (movieId : string):boolean =>{
-    return user?.favourites.some((fav: mongoose.Types.ObjectId) => fav != null && fav.equals(movieId))
+    return user?.favourites.some((fav: mongoose.Types.ObjectId) => fav != null && fav.toString() == movieId.toString())
   }
   
   const [addButton, setAddButton] = useState(isFavourite(movieId) as boolean)
@@ -54,9 +54,7 @@ const FavouriteButton: React.FC<FavouriteButtonProps> = ({ movieId }) => {
   //using SWR to fetch the favourites and keep them up to date
   const { data: favourites } = useSWR('/api/favourites', fetcher);
 
-  //using react-query to fetch the current user
 
-  //checking if the movie is already in the user's favourites
 
   const handleAddFavourite = async () => {
     try {
