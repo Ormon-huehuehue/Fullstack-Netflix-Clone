@@ -1,4 +1,4 @@
-"use server"
+
 
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
@@ -6,8 +6,12 @@ import { connectDb } from "@/lib/utils";
 import { User } from "@/models/userModel";
 import mongoose from 'mongoose';
 
-export async function GET(request: Request) {
+
+
+export async function GET(request: Request){
   try {
+    
+  
     const session = await auth();
     const userEmail = session?.user?.email;
 

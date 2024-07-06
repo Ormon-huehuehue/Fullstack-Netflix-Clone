@@ -3,6 +3,7 @@ import React from 'react'
 import { IoIosPlay } from "react-icons/io";
 import FavouriteButton from './FavouriteButton';
 import { movieInterface } from './MovieList';
+import Link from 'next/link';
 
 interface MovieCardProps{
     thumbnail: string,
@@ -13,7 +14,6 @@ interface MovieCardProps{
 
 const MovieCard= ({thumbnail, _id, genre} : MovieCardProps  ) => {
 
-    console.log("thumbnail", thumbnail)
 
   return (
     <div className = "group bg-zinc-900 col-span relative h-[12vw]">
@@ -26,7 +26,9 @@ const MovieCard= ({thumbnail, _id, genre} : MovieCardProps  ) => {
                 <div className = "flex flex-row item-center gap-3">
                     <div onClick={()=>{}}
                     className = "cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
-                        <IoIosPlay size={20} />
+                        <Link href = {`/watch/${_id}`}>
+                            <IoIosPlay size={20} />
+                        </Link>
                     </div>
                     <FavouriteButton movieId = {_id} />
                 </div>

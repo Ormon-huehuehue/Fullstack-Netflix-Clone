@@ -4,9 +4,12 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { connectDb } from "@/lib/utils";
 import { User } from "@/models/userModel";
+import { Video } from "@/models/videoModel"; // Import the Video model
+import { movieInterface } from "@/components/MovieList";
 
-const getFavourites = async () => {
-  try {
+// Adjust the function signature to directly accept an array of string IDs
+const getFavourites = async (favouritesId: string[]) => {
+
     const session = await auth();
     const userEmail = session?.user?.email;
 
@@ -17,23 +20,17 @@ const getFavourites = async () => {
     // Connect to the database
     await connectDb();
 
-    // Find the user and populate the favourites
-    const user = await User.findOne({ email: userEmail }).populate('favourites');
+    // Use the favouritesId array to fetch the corresponding videos
+    const videos = await Video.find({
+      '_id': { $in: favouritesId }
+    }) as movieInterface[];
 
-    if (!user) {
-      console.error("User not found");
-      return NextResponse.json({ error: 'User not found' });
+    if (!videos || videos.length === 0) {
+      console.error("Videos not found");
+      return NextResponse.json({ error: 'Videos not found' });
     }
-    const favourites = user.favourites;
-    return favourites;
-
-
-  } catch (error) {
-    console.error('Error fetching favourites:', error);
-    return NextResponse.json({ error: 'Server error' });
-  }
+    
+    return videos;
 }
 
-
 export default getFavourites;
-

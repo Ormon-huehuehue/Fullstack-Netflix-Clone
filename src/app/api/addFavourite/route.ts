@@ -22,7 +22,7 @@ export async function POST(request: Request) {
 
     const video_id = new mongoose.Types.ObjectId(movieId);
     const existingMovie = await Video.findOne({ _id: video_id });
-    console.log("existing movie" ,existingMovie);
+   
 
     if (!existingMovie) {
       throw new Error("Movie not found")

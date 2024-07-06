@@ -6,7 +6,7 @@ import MovieCard from './MovieCard';
 import getMovies from '@/actions/getMovies';
 import mongoose from 'mongoose';
 
-interface MovieListProps {
+export interface MovieListProps {
   Title: string;
 }
 
@@ -36,7 +36,6 @@ const MovieList: React.FC<MovieListProps> = async({ Title }) => {
           <div className="grid grid-cols-4 gap-2 mt-5">
           {
           movies?.map((movie, i: number) => {
-            // Convert _id to string
                
             return (
               <div key={i}>

@@ -3,6 +3,7 @@
 import useBillboard from '@/hooks/useBillboard'
 import React from 'react'
 import { CiCircleInfo } from "react-icons/ci";
+import PlayButton from './PlayButton';
 
 
 const Billboard =async () => {
@@ -12,6 +13,7 @@ const Billboard =async () => {
     const thumbnail = data?.thumbnail;
     const title = data?.title;
     const description = data?.description;
+    const movieId = data?._id;
     
 
 
@@ -23,6 +25,7 @@ const Billboard =async () => {
       <h1 className = "text-white font-montserrat font-bold md:text-5xl h-full w-[50%] lg:text-6xl drop-shadow-xl"> {title}</h1>
       <p className = "text-white font-montserrat font-semibold text-[8px] md:text-lg mt-3 md:mt-8 w-[90%] md:[80%] lg:w-[50%]"> {description}</p>
       <div className = "flex items-center mt-3 md:mt-4 gap-3">
+        <PlayButton movieId = {movieId}/>
         <button className ="bg-white text-white bg-opacity-30 rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold font-montserrat flex items-center hover:bg-opacity-20 transition gap-3">
         <CiCircleInfo />
           More Info

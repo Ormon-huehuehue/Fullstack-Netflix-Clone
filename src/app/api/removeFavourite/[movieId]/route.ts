@@ -4,7 +4,8 @@ import { User } from "@/models/userModel";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
-export async function DELETE(request: Request, { params }: { params: { movieId: string } }) {
+export async function DELETE(request: Request, { params }: { params: { movieId: string } }){
+  
   try {
     const session = await auth();
     const userEmail = session?.user?.email;

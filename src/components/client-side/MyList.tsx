@@ -19,7 +19,6 @@ const MyList: React.FC<MovieListProps> = ({ Title }) => {
 
   // Fetching favourites
   const { data: favourites } = useSWR('/api/favourites', fetcher);
-  console.log(favourites)
 
   console.log(favourites);
 

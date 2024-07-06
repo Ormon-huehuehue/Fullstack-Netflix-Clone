@@ -9,6 +9,7 @@ import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 
 
+
 const Page = async () => {
   const queryClient = new QueryClient();
 

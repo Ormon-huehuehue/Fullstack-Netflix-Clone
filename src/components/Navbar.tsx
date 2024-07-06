@@ -17,29 +17,32 @@ import {
   import { CiSearch } from "react-icons/ci";
   import { AiTwotoneBell } from "react-icons/ai";
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery , useQueryClient} from '@tanstack/react-query';
 
 const Navbar =  () => {
 
+    const queryClient = useQueryClient();
 
     const {data : currUser , error} = useQuery({
         queryKey:['currUser'],
         queryFn: getCurrentUser
     })
+
+    const profilePic = currUser?.image? currUser.image : "./profile.webp"
     
     const name = currUser?.name as string;
-    console.log(name);
 
 
   return (
     <nav className = "text-white py-4 px-5 flex justify-between font-montserrat">
-        <img src = "/logo.png" alt="logo" className = ""/>
-        <div id="links" className = "text-xl flex gap-20 items-center">
+        <div id="links" className = "text-xl flex gap-10 items-center">
+            <Link href = "/" ><img src = "/logo.png" alt="logo"/></Link>
+        
             <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> Home </Link>
             <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400" > Series </Link>
             <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> Films </Link>
             <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> New & popular </Link>
-            <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> My List </Link>
+            <Link href = "/myList" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> My List </Link>
         </div>
         <div className ="flex items-center gap-10 font-montserrat ">
             <div className = "cursor-pointer w-6 h-6 flex justify-center items-center">
@@ -51,7 +54,7 @@ const Navbar =  () => {
             <p> Logged in as {name} </p>  
             <DropdownMenu>
                 <DropdownMenuTrigger>
-                    <img className = "w-[40px] rounded-md" src="/profile.webp" alt="" />
+                    <img className = "w-[40px] rounded-full" src={profilePic} alt=""/>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>

@@ -8,7 +8,7 @@ import { User } from "@/models/userModel";
 
 export async function GET(){
     try{
-        console.log("get mothod ran on currentUser API")
+   
         const session = await auth();
         const userEmail = session?.user?.email;
     
