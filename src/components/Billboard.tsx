@@ -2,9 +2,9 @@
 
 import useBillboard from '@/hooks/useBillboard'
 import React from 'react'
-import { CiCircleInfo } from "react-icons/ci";
-import PlayButton from './PlayButton';
 
+import PlayButton from './PlayButton';
+import {motion} from 'framer-motion'
 
 const Billboard =async () => {
 
@@ -26,10 +26,7 @@ const Billboard =async () => {
       <p className = "text-white font-montserrat font-semibold text-[8px] md:text-lg mt-3 md:mt-8 w-[90%] md:[80%] lg:w-[50%]"> {description}</p>
       <div className = "flex items-center mt-3 md:mt-4 gap-3">
         <PlayButton movieId = {movieId}/>
-        <button className ="bg-white text-white bg-opacity-30 rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold font-montserrat flex items-center hover:bg-opacity-20 transition gap-3">
-        <CiCircleInfo />
-          More Info
-        </button>
+       
       </div>
     </div>
 

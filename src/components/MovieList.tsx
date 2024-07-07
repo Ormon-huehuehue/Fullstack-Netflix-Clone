@@ -39,7 +39,10 @@ const MovieList: React.FC<MovieListProps> = async({ Title }) => {
                
             return (
               <div key={i}>
-                <MovieCard thumbnail = {movie.thumbnail} _id = {  movie._id.toString()} genre = {movie.genre}/>
+                <MovieCard thumbnail = {movie.thumbnail} _id = {  movie._id.toString()} genre = {movie.genre} title = {movie.title}
+                description = {movie.description}
+                videoPath = {movie.videoPath}
+                />
               </div>
             );
           })
@@ -48,8 +51,6 @@ const MovieList: React.FC<MovieListProps> = async({ Title }) => {
         </div>
       </div>
  
-    // Convert movies to plain objects by serializing to JSON and parsing
-
   
     );
   };

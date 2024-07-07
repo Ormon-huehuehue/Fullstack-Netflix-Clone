@@ -16,6 +16,7 @@ import {
 
   import { CiSearch } from "react-icons/ci";
   import { AiTwotoneBell } from "react-icons/ai";
+  import { motion } from 'framer-motion';
 
 import { useQuery , useQueryClient} from '@tanstack/react-query';
 
@@ -54,7 +55,10 @@ const Navbar =  () => {
             <p> Logged in as {name} </p>  
             <DropdownMenu>
                 <DropdownMenuTrigger>
-                    <img className = "w-[40px] rounded-full" src={profilePic} alt=""/>
+                    <motion.img 
+                    whileHover={{scale:1.1}}
+                    whileTap = {{scale:0.9}}
+                    className = "w-[40px] rounded-full" src={profilePic} alt=""/>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>

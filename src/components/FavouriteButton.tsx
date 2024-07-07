@@ -13,6 +13,7 @@ import getCurrentUser from '@/actions/getCurrentUser';
 import { useState } from 'react';
 import mongoose from 'mongoose';
 import getFavourites from '@/actions/getFavourites';
+import {motion} from 'framer-motion';
 
 
 
@@ -142,12 +143,14 @@ const FavouriteButton = ( {movieId} : {movieId:string}) => {
   // }
 
   return (
-    <div
+    <motion.button
+        whileHover={{scale:1.1}}
+        whileTap = {{scale:0.9}}
       onClick={addButton ? ()=>removeFromFavs() : ()=> addToFavs()}
-      className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300"
+      className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center"
     >
       {addButton ? <GrFormSubtract size={30} /> : <IoIosAdd size={30} />}
-    </div>
+    </motion.button>
   );
 };
 
