@@ -19,6 +19,7 @@ Signup page :-
 ![image](https://github.com/user-attachments/assets/346b3669-68a2-4361-9585-057269f35304)
 
 Favourites and Previews :-
+
 ![favourites and previews](https://github.com/user-attachments/assets/a93e96a0-3541-4f2e-9eec-ce2337e9dd17)
 
 
