@@ -7,6 +7,8 @@ Features I've added so far :-
 * Transcoding the video using ffmpeg ( I've used video.js for videoplayback using hls)
 * HTTP Live Streaming(HLS) in one of the videos (Proof of concept)
 
+Home Page :-
+![image](https://github.com/user-attachments/assets/abaf6b54-5fd3-4906-8033-041f05ad5db7)
 
 
 HTTP Live Streaming - The video is loaded up in multiple segments (segment000.ts & segment001.ts in this case)
