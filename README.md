@@ -22,4 +22,6 @@ Favourites and Previews :-
 
 ![favourites and previews](https://github.com/user-attachments/assets/a93e96a0-3541-4f2e-9eec-ce2337e9dd17)
 
+![largeGif](https://github.com/user-attachments/assets/57179197-41b8-4dc7-b438-6adca175653f)
+
 
