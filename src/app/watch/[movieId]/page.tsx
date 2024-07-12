@@ -8,6 +8,8 @@ import { IoIosArrowForward } from "react-icons/io";
 import axios from 'axios';
 import { movieInterface } from '@/components/MovieList';
 import Link from 'next/link';
+import VideoPlayer from '@/components/client-side/VideoPlayer';
+import { useRef } from 'react';
 
 const getMovieData = async (movieId: string) => {
   const response = await axios.get(`/api/movies/${movieId}`)
@@ -29,13 +31,35 @@ const page = ({params}: {params : {movieId:string}}) => {
         onReload()
     },[])
 
+    const playerRef = useRef(null);
+    const videoLink =  "/hslIndex.m3u8"
+    const videoPlayerOption = {
+      controls : true,
+      responsive : true,
+      fliud : true,
+      sources : {
+        src : videoLink,
+        trpe : "application/x-mpegURL"
+      }
+    }
+
+    const handlePlayerReady = (player)=>{
+      playerRef.current = player;
+  
+      player.on("waiting", ()=>{
+        videojs.log("Player is waiting")
+      })
+  
+      player.on("dispose", ()=>{
+        videojs.log("Player will disposed")
+      })
+    }
+
 
     console.log(data)
 
     const title = data?.title as string;
     const url = data?.videoPath as string;
-
-    
 
   return (
     <div className = "h-screen w-screen bg-black">
@@ -52,8 +76,13 @@ const page = ({params}: {params : {movieId:string}}) => {
 
         </nav>
 
-        <video controls src ={url} loop className= "h-full w-full"/>
+        {url ? 
+        <video controls src ={url} loop className= "h-full w-full"/> :
+        <VideoPlayer 
+        options = {videoPlayerOption}
+        onReady = {handlePlayerReady}/> 
 
+        }
     </div>
   )
 }

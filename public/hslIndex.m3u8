@@ -1,0 +1,10 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-TARGETDURATION:8
+#EXT-X-MEDIA-SEQUENCE:0
+#EXT-X-PLAYLIST-TYPE:VOD
+#EXTINF:5.000000,
+https://res.cloudinary.com/dcisswp5z/video/upload/v1720810202/segment000_pvqjxj.ts
+#EXTINF:7.500000,
+https://res.cloudinary.com/dcisswp5z/video/upload/v1720810213/segment001_dbhk0v.ts
+#EXT-X-ENDLIST

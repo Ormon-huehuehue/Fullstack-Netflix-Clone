@@ -30,8 +30,7 @@ const MovieCard= ({thumbnail, _id, genre, title, description, videoPath} : Movie
     <div className = "group bg-zinc-900 col-span relative h-[12vw]">
         <img src= {thumbnail} alt="" 
         className = "cursor-pointer object-cover transition duration shadow-xl rounded-md group-hover:opacity-90 sm:group-hover:opacity-0 delay-100 w-full h-[12vw]"/>
-        <div className= "opacity-0 absolute top-0 duration-100 z-10 invisible sm:visible delay-100 w-full scale-0 group-hover:scale-110 group-hover:-translate-y-[6vw] group-hover:translate-x-[2vw] group-hover:opacity-100" 
-         onClick ={()=> (modalOpen ? close() : open())}>
+        <div className= "opacity-0 absolute top-0 duration-100 z-10 invisible sm:visible delay-100 w-full scale-0 group-hover:scale-110 group-hover:-translate-y-[6vw] group-hover:translate-x-[2vw] group-hover:opacity-100" >
             <img src={thumbnail}
             className ="cursor-pointer object-cover transition duration shadow-xl rounded-t-md w-full h-[12vw]"/>
             <div className = "z-10 bg-zinc-800 p-2 lg:p-4 absolute w-full transition shadow-md  rounded-b-md ">
@@ -43,6 +42,8 @@ const MovieCard= ({thumbnail, _id, genre, title, description, videoPath} : Movie
                         </Link>
                     </div>
                     <FavouriteButton movieId = {_id} />
+                    <button onClick ={()=> (modalOpen ? close() : open())}
+                     className = "bg-white rounded-md font-palanquin text-[16px] px-3  "> Info</button>
                 </div>
 
                 <p className = "text-green-400 font-semibold font-montserrat mt-4">

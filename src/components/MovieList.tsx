@@ -17,7 +17,8 @@ export interface movieInterface{
   title: string,
   description : string,
   genre: string;
-  views : number
+  views : number,
+  m3u8 : string
 }
 
 const MovieList: React.FC<MovieListProps> = async({ Title }) => {
