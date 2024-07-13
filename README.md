@@ -4,7 +4,7 @@ Features I've added so far :-
 * Protected routes
 * Adding/removing movies to/from the current user's favourites list in the database
 * Movie previews (when the user clicks on the 'info' button)\
-* Transcoding the video using ffmpeg ( I've used video.js for videoplayback using hls)
+* Transcoding the video using ffmpeg (video.js for videoplayback)
 * HTTP Live Streaming(HLS) in one of the videos (Proof of concept)
 
 Home Page :-
@@ -24,4 +24,5 @@ Favourites and Previews :-
 
 ![largeGif](https://github.com/user-attachments/assets/57179197-41b8-4dc7-b438-6adca175653f)
 
-
+Video transcoding using -
+https://github.com/Ormon-huehuehue/HTTP-Live-Streaming-HLS-
