@@ -10,7 +10,7 @@ import Modal from './Modal';
 interface MovieCardProps{
     thumbnail: string,
     _id : string,
-    genre : string,
+    genre? : string,
     title: string,
     description: string,
     videoPath : string

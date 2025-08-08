@@ -1,11 +1,9 @@
-import NextAuth,{AuthError, CredentialsSignin} from "next-auth"
-import GitHub from "next-auth/providers/github"
+import NextAuth,{ CredentialsSignin} from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialProvider from "next-auth/providers/credentials"
 import { connectDb } from "./lib/utils";
 import {compare} from "bcryptjs";
-import { User } from "./models/userModel";
-import { Video } from "./models/videoModel";
+import { User } from "./models/userModel";;
  
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [

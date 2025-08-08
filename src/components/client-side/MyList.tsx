@@ -32,10 +32,16 @@ const MyList: React.FC<MovieListProps> = ({ Title }) => {
           <div className="grid grid-cols-4 gap-2 mt-5">
           
           {
-              favourites?.map((fav: movieInterface, i:number) => (
+              favourites && Array.isArray(favourites) && favourites.map((fav: movieInterface, i:number) => (
               <div key={i}>
                 <MovieCard
-                thumbnail = {fav.thumbnail} _id = {  fav._id.toString()} genre = {fav.genre}/>
+                thumbnail = {fav.thumbnail} 
+                _id = {fav._id.toString()} 
+                genre = {fav.genre}
+                title = {fav.title}
+                videoPath = {fav.videoPath}
+                description = {fav.description}
+                />
               </div>
             ))}
            
