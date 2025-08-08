@@ -3,25 +3,24 @@ import { Video } from "@/models/videoModel";
 import { NextApiResponse } from "next";
 
 const useBillboard = async() => {
-  // Function to fetch a random video URL
+  // Function to fetch the first video URL
 
     await connectDb();
-
     try {
       
-      // Use aggregation to get a random document
-      const randomVideo = await Video.aggregate([
-        { $sample: { size: 1 } } // $sample is used to randomly select documents
+      // Use aggregation to get the first document
+      const firstVideo = await Video.aggregate([
+        { $limit: 1 } // $limit is used to get the first document
       ]);
   
       // Check if a video was found
-      if (randomVideo.length > 0) {
-        return randomVideo[0]
+      if (firstVideo.length > 0) {
+        return firstVideo[0]
       } else {
         return null; // No video found
       }
     } catch (error) {
-      console.error('Failed to fetch random video URL:', error);
+      console.error('Failed to fetch first video URL:', error);
       return null;
     }
   };

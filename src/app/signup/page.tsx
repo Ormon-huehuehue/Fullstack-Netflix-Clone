@@ -3,14 +3,13 @@ import Input from '@/components/input'
 import React from 'react'
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
-import { Toaster } from '@/components/ui/toaster'
-import ErrorToast from '@/components/client-side/errorToast'
 import { connectDb } from '@/lib/utils'
 import { User } from '@/models/userModel'
 import { hash } from 'bcryptjs'
 import { redirect } from 'next/navigation'
 import { signIn } from '@/auth'
 import { Mail } from "lucide-react"
+import Image from 'next/image'
 
 
 
@@ -61,7 +60,7 @@ const page = () => {
     <div className = "h-screen w-full bg-[url('/hero.png')] bg-no-repeat bg-center bg-fixed bg-cover">
       <div className = "bg-black w-full h-full bg-opacity-30 flex flex-col items-center rounded-[60%]">
         <nav className = "px-12 py-5 w-screen">
-          <img src= "/logo.png" alt="logo"/>
+          <Image src= "/logo.png" alt="logo"/>
         </nav>
 
         <main className  = "flex justify-center w-2/5 ">

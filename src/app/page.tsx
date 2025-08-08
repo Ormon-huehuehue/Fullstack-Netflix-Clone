@@ -11,21 +11,21 @@ import { redirect } from 'next/navigation';
 
 
 const Page = async () => {
-  // const queryClient = new QueryClient();
+  const queryClient = new QueryClient();
 
-  // await queryClient.prefetchQuery({
-  //   queryKey:['currUser'],
-  //   queryFn: getCurrentUser
-  // })
+  await queryClient.prefetchQuery({
+    queryKey:['currUser'],
+    queryFn: getCurrentUser
+  })
 
-  // const session = await auth();
-  // const userEmail = session?.user?.email;
+  const session = await auth();
+  const userEmail = session?.user?.email;
   // if(!userEmail){
   //   redirect("/login")
   // }
 
   return (
-        // <HydrationBoundary state={dehydrate(queryClient)}>
+        <HydrationBoundary state={dehydrate(queryClient)}>
     <div className="h-screen bg-black object-fill relative">
       <div className="absolute top-0 left-0 w-full z-10">
         <Navbar />
@@ -36,7 +36,7 @@ const Page = async () => {
           <MyList Title="My List" />
       </div>
     </div>
-        // </HydrationBoundary>
+    </HydrationBoundary>
   );
 };
 

@@ -9,6 +9,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { loginHandler } from "@/actions/login"
 import { redirect } from 'next/navigation'
 import { signIn } from '@/auth'
+import Image from 'next/image'
 
 
 
@@ -20,7 +21,7 @@ const {toast} = useToast();
   return (
     <div className = "bg-black w-full h-full bg-opacity-30 flex flex-col items-center rounded-[60%]">
         <nav className = "px-12 py-5 w-screen">
-          <img src= "/logo.png" alt="logo"/>
+          <Image src= "/logo.png" alt="logo" width={50} height={50}/>
         </nav>
 
         <main className  = "flex justify-center w-2/5 ">

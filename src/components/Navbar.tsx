@@ -13,7 +13,7 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
   import getCurrentUser from '@/actions/getCurrentUser';
-
+  import Image from 'next/image';
   import { CiSearch } from "react-icons/ci";
   import { AiTwotoneBell } from "react-icons/ai";
   import { motion } from 'framer-motion';
@@ -37,7 +37,7 @@ const Navbar =  () => {
   return (
     <nav className = "text-white py-4 px-5 flex justify-between font-montserrat">
         <div id="links" className = "text-xl flex gap-10 items-center">
-            <Link href = "/" ><img src = "/logo.png" alt="logo"/></Link>
+            <Link href = "/" ><Image src = "/logo.png" alt="logo" width={50} height={50}/></Link>
         
             <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> Home </Link>
             <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400" > Series </Link>

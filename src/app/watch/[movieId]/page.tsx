@@ -1,22 +1,20 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
-import useMovie from "../../../hooks/useMovie"
-import Navbar from '@/components/Navbar';
+import React, { useEffect, useState, useRef } from 'react'
 import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
 import axios from 'axios';
 import { movieInterface } from '@/components/MovieList';
 import Link from 'next/link';
 import VideoPlayer from '@/components/client-side/VideoPlayer';
-import { useRef } from 'react';
+import videojs from 'video.js';
+import type Player from 'video.js/dist/types/player';
 
 const getMovieData = async (movieId: string) => {
   const response = await axios.get(`/api/movies/${movieId}`)
   return response.data;
 };
 
-const page = ({params}: {params : {movieId:string}}) => {
+const Page = ({params}: {params : {movieId:string}}) => {
 
     const [data, setData ] = useState<movieInterface>()
 
@@ -29,9 +27,9 @@ const page = ({params}: {params : {movieId:string}}) => {
 
     useEffect(()=>{
         onReload()
-    },[])
+    },[movieId])
 
-    const playerRef = useRef(null);
+    const playerRef = useRef<Player | null>(null);
     const videoLink =  "/hslIndex.m3u8"
     const videoPlayerOption = {
       controls : true,
@@ -43,7 +41,7 @@ const page = ({params}: {params : {movieId:string}}) => {
       }
     }
 
-    const handlePlayerReady = (player)=>{
+    const handlePlayerReady = (player: Player)=>{
       playerRef.current = player;
   
       player.on("waiting", ()=>{
@@ -87,4 +85,4 @@ const page = ({params}: {params : {movieId:string}}) => {
   )
 }
 
-export default page
+export default Page

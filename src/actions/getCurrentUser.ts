@@ -20,7 +20,7 @@ const getCurrentUser = async () => {
     // Find the user and populate the favourites
     const user = await User.findOne({ email: userEmail });
 
-    console.log("GET CURRENT USER", user)
+    
 
     return user
 }

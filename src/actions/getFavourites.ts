@@ -4,12 +4,9 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { connectDb } from "@/lib/utils";
 import { User } from "@/models/userModel";
-import { Video } from "@/models/videoModel"; // Import the Video model
-import { movieInterface } from "@/components/MovieList";
 
-// Adjust the function signature to directly accept an array of string IDs
-const getFavourites = async (favouritesId: string[]) => {
-
+const getFavourites = async () => {
+  try {
     const session = await auth();
     const userEmail = session?.user?.email;
 
@@ -20,17 +17,22 @@ const getFavourites = async (favouritesId: string[]) => {
     // Connect to the database
     await connectDb();
 
-    // Use the favouritesId array to fetch the corresponding videos
-    const videos = await Video.find({
-      '_id': { $in: favouritesId }
-    }) as movieInterface[];
+    // Find the user and populate the favourites
+    const user = await User.findOne({ email: userEmail }).populate('favourites');
 
-    if (!videos || videos.length === 0) {
-      console.error("Videos not found");
-      return NextResponse.json({ error: 'Videos not found' });
+    if (!user) {
+      console.error("User not found");
+      return NextResponse.json({ error: 'User not found' });
     }
-    
-    return videos;
+    const favourites = user.favourites;
+    return favourites;
+
+
+  } catch (error) {
+    console.error('Error fetching favourites:', error);
+    return NextResponse.json({ error: 'Server error' });
+  }
 }
+
 
 export default getFavourites;
