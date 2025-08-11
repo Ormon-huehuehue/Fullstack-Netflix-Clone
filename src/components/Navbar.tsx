@@ -17,19 +17,17 @@ import {
   import { CiSearch } from "react-icons/ci";
   import { AiTwotoneBell } from "react-icons/ai";
   import { motion } from 'framer-motion';
+  import { MdAccountCircle } from "react-icons/md";
 
-import { useQuery , useQueryClient} from '@tanstack/react-query';
+import { useQuery} from '@tanstack/react-query';
 
 const Navbar =  () => {
-
-    const queryClient = useQueryClient();
-
     const {data : currUser , error} = useQuery({
         queryKey:['currUser'],
         queryFn: getCurrentUser
     })
 
-    const profilePic = currUser?.image? currUser.image : "./profile.webp"
+    // const profilePic = currUser?.image? currUser.image : "./profile.webp"
     
     const name = currUser?.name as string;
 
@@ -37,28 +35,30 @@ const Navbar =  () => {
   return (
     <nav className = "text-white py-4 px-5 flex justify-between font-montserrat">
         <div id="links" className = "text-xl flex gap-10 items-center">
-            <Link href = "/" ><Image src = "/logo.png" alt="logo" width={50} height={50}/></Link>
-        
-            <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> Home </Link>
-            <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400" > Series </Link>
-            <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> Films </Link>
-            <Link href = "/" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> New & popular </Link>
-            <Link href = "/myList" className = "font-semibold text-white text-lg cursor-pointer hover:underline hover:text-slate-400"> My List </Link>
+            <Link href = "/" ><Image src = "/logo.png" alt="logo" width={100} height={50}/></Link>
+            <Link href = "/" className = "text-white text-base cursor-pointer hover:text-slate-400 transition-all transition-300"> Home </Link>
+            <Link href = "/" className = " text-white text-base cursor-pointer hover:text-slate-400 transition-all transition-300" > Series </Link>
+            <Link href = "/" className = " text-white text-base cursor-pointer hover:text-slate-400 transition-all transition-300"> Films </Link>
+            <Link href = "/" className = " text-white text-base cursor-pointer hover:text-slate-400 transition-all transition-300"> New & popular </Link>
+            <Link href = "/myList" className = " text-white text-base cursor-pointer hover:text-slate-400 transition-all transition-300"> My List </Link>
         </div>
-        <div className ="flex items-center gap-10 font-montserrat ">
+        <div className ="flex items-center gap-6 font-montserrat ">
             <div className = "cursor-pointer w-6 h-6 flex justify-center items-center">
             <CiSearch />
             </div>
             <div className ="cursor-pointer w-6 h-6 flex justify-center items-center">
             <AiTwotoneBell />
             </div>
-            <p> Logged in as {name} </p>  
+            <p className='text-white text-base font-montserrat'> Logged in as {name} </p>  
             <DropdownMenu>
                 <DropdownMenuTrigger>
-                    <motion.img 
+                    <motion.div 
                     whileHover={{scale:1.1}}
                     whileTap = {{scale:0.9}}
-                    className = "w-[40px] rounded-full" src={profilePic} alt=""/>
+                    className = "w-10 h-10 rounded-full  flex items-center justify-center cursor-pointer"
+                    >
+                        <MdAccountCircle className="text-white text-xl" size={30} />
+                    </motion.div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>

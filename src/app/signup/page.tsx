@@ -57,13 +57,13 @@ const page = () => {
 
 
   return (
-    <div className = "h-screen w-full bg-[url('/hero.png')] bg-no-repeat bg-center bg-fixed bg-cover">
+    <div className = "h-screen w-full bg-[url('/hero.webp')] bg-no-repeat bg-center bg-fixed bg-cover">
       <div className = "bg-black w-full h-full bg-opacity-30 flex flex-col items-center rounded-[60%]">
         <nav className = "px-12 py-5 w-screen">
-          <Image src= "/logo.png" alt="logo"/>
+          <Image src= "/logo.webp" alt="logo"/>
         </nav>
 
-        <main className  = "flex justify-center w-2/5 ">
+        <main className  = "flex justify-center wd-2/5 ">
           <div className = "bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:max-w-md rounded-md w-full">
           <h2 className = "text-white text-4xl mb-8 font-semibold">Register</h2>
           <form action={signUp} className = "flex flex-col items-center gap-5">

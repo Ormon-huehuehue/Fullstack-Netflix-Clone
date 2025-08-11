@@ -19,6 +19,8 @@ const config = {
     },
     extend: {
       fontFamily: {
+        sans: ['var(--font-martel-sans)', 'Martel Sans', 'sans-serif'],
+        martel: ['var(--font-martel-sans)', 'Martel Sans', 'sans-serif'],
         catflix: ["Bebas Neue"],
         palanquin: ['Palanquin', 'sans-serif'],
         montserrat: ['Montserrat', 'sans-serif'],

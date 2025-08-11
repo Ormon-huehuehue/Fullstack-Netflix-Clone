@@ -21,7 +21,7 @@ const {toast} = useToast();
   return (
     <div className = "bg-black w-full h-full bg-opacity-30 flex flex-col items-center rounded-[60%]">
         <nav className = "px-12 py-5 w-screen">
-          <Image src= "/logo.png" alt="logo" width={50} height={50}/>
+          <Image src= "/logo.webp" alt="logo" width={50} height={50}/>
         </nav>
 
         <main className  = "flex justify-center w-2/5 ">

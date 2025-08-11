@@ -4,18 +4,17 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { IoIosClose } from "react-icons/io";
 import PlayButton from './PlayButton';
 
-
 const popUp = {
     hidden:{
-        scale : 0,
+        scale : 0.8,
         opacity:0
     },
     visible:{
         scale:1,
         opacity:1,
         transition:{
-            duration:0.1,
-            ease : "easeIn"
+            duration:0.3,
+            ease : "easeOut"
         }
     } 
 }
@@ -26,12 +25,10 @@ interface ModalProps{
     description: string,
     thumbnail: string,
     url: string,
-    handleClose : React.MouseEventHandler<HTMLDivElement>
+    handleClose : (e: React.MouseEvent<HTMLElement>) => void
 }
 
 const Modal = ({handleClose, movieId, title, description, thumbnail, url}:ModalProps)=>{
-
-    
 
   return (
     <AnimatePresence >
@@ -41,33 +38,49 @@ const Modal = ({handleClose, movieId, title, description, thumbnail, url}:ModalP
         variants={popUp}
         initial="hidden"
         animate="visible"
-        exit={{ opacity: 0 }}
-        className="bg-zinc-900 w-1/2 h-1/2 rounded-[5%] relative overflow-hidden" // Added relative here
+        exit={{ opacity: 0, scale: 0.8 }}
+        className="bg-zinc-900 w-[90vw] max-w-4xl h-[80vh] max-h-[600px] rounded-lg relative overflow-hidden shadow-2xl"
     >
-    <div className="w-full h-full">
+        {/* Video Section */}
+        <div className="relative w-full h-2/3">
             <video
-                poster= {thumbnail}
+                poster={thumbnail}
                 src={url}
                 autoPlay
                 loop
                 muted
-                className="object-cover w-full h-3/4 "
+                className="object-cover w-full h-full"
             />
-            <motion.div className="cursor-pointer bg-zinc-800 rounded-full inline-block absolute top-4 right-4" onClick={handleClose}
-            whileHover={{scale:1.1}}
-            whileTap = {{scale:0.9}}>
-            <IoIosClose className="text-white" size={40} />
-            </motion.div>
-            <div className="absolute bottom-10 left-7"> 
-            <PlayButton movieId={movieId}/>
-            </div>
-        
-            <div className = "text-white text-3xl md:text-4xl h-full lg:text-2xl font-bold mb-8 font-montserrat ">
-            <p className  = "bottom-[27%] px-10 absolute"> {title}</p>
-            <p className  = "bottom-[19%] px-5 absolute text-lg font-normal"> {description}</p>
+            
+            {/* Close Button */}
+            <motion.button 
+                className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full p-2 transition-all duration-200" 
+                onClick={handleClose}
+                whileHover={{scale:1.1}}
+                whileTap={{scale:0.9}}
+            >
+                <IoIosClose className="text-white" size={24} />
+            </motion.button>
 
+            {/* Play Button */}
+            <div className="absolute bottom-4 left-4"> 
+                <PlayButton movieId={movieId}/>
             </div>
 
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent"></div>
+        </div>
+
+        {/* Content Section */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-900 via-zinc-900/95 to-transparent">
+            <div className="space-y-3">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight">
+                    {title}
+                </h2>
+                <p className="text-gray-300 text-sm md:text-base leading-relaxed max-w-2xl">
+                    {description}
+                </p>
+            </div>
         </div>
     </motion.div>
     </Backdrop>
