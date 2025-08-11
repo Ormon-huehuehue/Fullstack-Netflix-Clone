@@ -28,13 +28,13 @@ const MovieCard= ({thumbnail, _id, genre, title, description, videoPath} : Movie
     <div className = "group bg-zinc-900 col-span relative h-[12vw]">
         <Image src= {thumbnail} alt="" width={3000} height={3000}
         className = "cursor-pointer object-cover transition duration shadow-xl rounded-md group-hover:opacity-90 sm:group-hover:opacity-0 delay-100 w-full h-[12vw]"/>
-        <div className= "opacity-0 absolute top-0 duration-100 z-10 invisible sm:visible delay-100 w-full scale-0 group-hover:scale-110 group-hover:-translate-y-[6vw] group-hover:translate-x-[2vw] group-hover:opacity-100" >
+        <div className= "opacity-0 absolute top-0 duration-100 z-10 invisible sm:visible delay-100 w-full scale-0 group-hover:scale-110 group-hover:-translate-y-[6vw] group-hover:translate-x-[2vw] group-hover:opacity-100 transition-all ease-out" >
             <Image src={thumbnail} alt="" width={300} height={300}
             className ="cursor-pointer object-cover transition duration shadow-xl rounded-t-md w-full h-[12vw]"/>
             <div className = "z-10 bg-zinc-800 p-2 lg:p-4 absolute w-full transition shadow-md  rounded-b-md ">
                 <div className = "flex flex-row item-center gap-3">
                     <div onClick={()=>{}}
-                    className = "cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
+                    className = "cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition-all hover:bg-neutral-300">
                         <Link href = {`/watch/${_id}`}>
                             <IoIosPlay size={20} />
                         </Link>
