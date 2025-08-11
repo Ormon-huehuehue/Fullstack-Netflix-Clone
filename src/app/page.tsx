@@ -20,9 +20,9 @@ const Page = async () => {
 
   const session = await auth();
   const userEmail = session?.user?.email;
-  // if(!userEmail){
-  //   redirect("/login")
-  // }
+   if(!userEmail){
+     redirect("/login")
+   }
 
   return (
         <HydrationBoundary state={dehydrate(queryClient)}>
